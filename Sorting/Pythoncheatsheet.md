@@ -36,3 +36,33 @@ sorted_tasks = sorted(tasks, key=lambda task: task[1])
 # or use cmp_to_key
 sorted_tasks = sorted(tasks, key=cmp_to_key(lambda t1, t2: t1[1] - t2[1]))
 # sorted_tasks = [('Buy grocery', 3), ('Cook dinner', 5)]
+
+
+# Example for custom comparator
+class Student:
+    def __init__(self, name: str, math_grade: int, english_grade: int) -> None:
+        self.name = name
+        self.math_grade = math_grade
+        self.english_grade = english_grade
+
+    def get_total_grade(self) -> int:
+        return self.math_grade + self.english_grade
+
+def print_student_names(students: list[Student]) -> None:
+    print(" ".join(s.name for s in students))
+
+def print_sorted_students(students: list[Student]) -> None:
+    # sort students by their total grade in ascending order
+    students.sort(key=lambda student:student.get_total_grade())
+    print_student_names(students)
+    # sort students by their total grade in descending order
+    students.sort(reverse=True, key=lambda student:student.get_total_grade())
+    print_student_names(students)
+
+if __name__ == "__main__":
+    students = []
+    for _ in range(int(input())):
+        line = input().split()
+        students.append(Student(line[0], int(line[1]), int(line[2])))
+    print_sorted_students(students)
+
